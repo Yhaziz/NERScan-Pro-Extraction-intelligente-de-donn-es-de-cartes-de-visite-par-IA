@@ -8,6 +8,13 @@ The goal is to extract key entities (e.g., name, email, phone number, organizati
 
 ---
 
+## App Screenshot
+
+![App Screenshot 1](https://github.com/Yhaziz/NERScan-Pro-Extraction-intelligente-de-donn-es-de-cartes-de-visite-par-IA/blob/master/doc.png?raw=true)
+![App Screenshot 2](https://github.com/Yhaziz/NERScan-Pro-Extraction-intelligente-de-donn-es-de-cartes-de-visite-par-IA/blob/master/doc%20ia.png?raw=true)
+
+---
+
 ## Setup Instructions
 
 ### Prerequisites
