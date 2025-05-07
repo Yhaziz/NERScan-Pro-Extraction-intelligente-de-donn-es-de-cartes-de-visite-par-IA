@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./output:/app/output
+      - ./static/media:/app/static/media
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped
