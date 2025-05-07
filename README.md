@@ -47,100 +47,15 @@ The goal is to extract key entities (e.g., name, email, phone number, organizati
    ```bash
    python -m spacy download en_core_web_sm
    ```
-7. **Install Jupyter Notebook**:
-   ```bash
-   pip install jupyter
-   ```
-8. **Run Jupyter Notebook**:
+
+7. **Run Jupyter Notebook**:
    ```bash
    jupyter notebook
    ```
 
 ---
 
-## Running the Web App with Docker
 
-### Using Docker
-1. **Create a Dockerfile**:
-   - Create a file named `Dockerfile` in the project root with the following content:
-     ```dockerfile
-     FROM python:3.11-slim
-
-     # Install Tesseract and other dependencies
-     RUN apt-get update && apt-get install -y \
-         libopencv-dev \
-         tesseract-ocr \
-         libtesseract-dev \
-         && apt-get clean \
-         && rm -rf /var/lib/apt/lists/*
-
-     # Set working directory
-     WORKDIR /app
-
-     # Copy requirements file
-     COPY requirements_app.txt .
-
-     # Install Python dependencies
-     RUN pip install --no-cache-dir -r requirements_app.txt
-
-     # Copy project files
-     COPY main.py Predicitions.py settings.py utils.py ./
-     COPY static/ ./static/
-     COPY templates/ ./templates/
-     COPY output/ ./output/
-
-     # Expose port for Flask
-     EXPOSE 5000
-
-     # Command to run the Flask app
-     CMD ["python", "main.py"]
-     ```
-
-2. **Build the Docker Image**:
-   - In the project directory, run:
-     ```bash
-     docker build -t business-card-nlp .
-     ```
-
-3. **Run the Docker Container**:
-   - Start the container and map port 5000:
-     ```bash
-     docker run -p 5000:5000 business-card-nlp
-     ```
-   - Access the web app at `http://localhost:5000`.
-
-### Using Docker Compose
-1. **Create a Docker Compose File**:
-   - Create a file named `docker-compose.yml` in the project root with the following content:
-     ```yaml
-     version: '3.8'
-     services:
-       app:
-         build:
-           context: .
-           dockerfile: Dockerfile
-         ports:
-           - "5000:5000"
-         volumes:
-           - .:/app
-         environment:
-           - FLASK_ENV=development
-     ```
-
-2. **Build the Docker Compose Services**:
-   - In the project directory, run:
-     ```bash
-     docker-compose build
-     ```
-
-3. **Run the Docker Compose Container**:
-   - Start the container:
-     ```bash
-     docker-compose up
-     ```
-   - Access the web app at `http://localhost:5000`.
-
----
 
 ## pytesseract Levels
 pytesseract supports five levels for text segmentation:
@@ -316,5 +231,41 @@ The `parser(text, label)` function cleans and formats extracted text based on th
       app.run(debug=True, host='0.0.0.0')
   ```
 - **Templates**: Store HTML files in the `templates` folder and render them using `render_template`.
+
+---
+
+
+
+## Running the Web App with Docker
+
+
+1. **Build the Docker Image**:
+   - In the project directory, run:
+     ```bash
+     docker build -t business-card-nlp .
+     ```
+
+2. **Run the Docker Container**:
+   - Start the container and map port 5000:
+     ```bash
+     docker run -p 5000:5000 business-card-nlp
+     ```
+   - Access the web app at `http://localhost:5000`.
+
+### Using Docker Compose
+
+
+1. **Build the Docker Compose Services**:
+   - In the project directory, run:
+     ```bash
+     docker-compose build
+     ```
+
+2. **Run the Docker Compose Container**:
+   - Start the container:
+     ```bash
+     docker-compose up
+     ```
+   - Access the web app at `http://localhost:5000`.
 
 ---
